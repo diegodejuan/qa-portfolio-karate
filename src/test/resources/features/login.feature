@@ -1,8 +1,8 @@
 Feature: Login de usuario
 
   Background:
-    * url 'https://reqres.in'
-    * header x-api-key = 'reqres-free-v1'
+    * url baseUrl
+    * configure headers = headers
 
   Scenario Outline: Login válido devuelve token
     Given path '/api/login'

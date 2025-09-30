@@ -1,8 +1,8 @@
 Feature: Gestión de usuarios
 
   Background:
-    * url 'https://reqres.in'
-    * header x-api-key = 'reqres-free-v1'
+    * url baseUrl
+    * configure headers = headers
 
   Scenario: Obtener usuario existente devuelve datos correctos
     Given path '/api/users/2'
@@ -39,3 +39,22 @@ Feature: Gestión de usuarios
     Given path '/api/users/2'
     When method DELETE
     Then status 204
+
+  Scenario: Listar usuarios paginados devuelve array
+    Given path '/api/users'
+    And param page = 2
+    When method GET
+    Then status 200
+    And match response.data == '#[6]'
+
+  Scenario Outline: Obtener distintos usuarios por id
+    Given path '/api/users/<id>'
+    When method GET
+    Then status 200
+    And match response.data.id == <id>
+
+    Examples:
+      | id |
+      | 1  |
+      | 2  |
+      | 3  |
