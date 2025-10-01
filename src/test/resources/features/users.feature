@@ -58,3 +58,15 @@ Feature: Gestión de usuarios
       | 1  |
       | 2  |
       | 3  |
+
+  Scenario: Validar esquema de usuario
+    Given path '/api/users/2'
+    When method GET
+    Then status 200
+    And match response.data == {id: '#number', email: '#string', first_name: '#string', last_name: '#string', avatar: '#string'}
+
+  Scenario: Tiempo de respuesta aceptable
+    Given path '/api/users'
+    When method GET
+    Then status 200
+    And assert responseTime < 2000
