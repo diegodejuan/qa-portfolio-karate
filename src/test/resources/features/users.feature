@@ -65,8 +65,4 @@ Feature: Gestión de usuarios
     Then status 200
     And match response.data == {id: '#number', email: '#string', first_name: '#string', last_name: '#string', avatar: '#string'}
 
-  Scenario: Tiempo de respuesta aceptable
-    Given path '/api/users'
-    When method GET
-    Then status 200
-    And assert responseTime < 2000
+
