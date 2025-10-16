@@ -5,16 +5,20 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Run Karate tests
-        run: mvn test
-      - name: Upload report
+
+      - name: Run Karate tests (mock server)
+        run: mvn test -Dkarate.env=mock
+
+      - name: Upload Karate Report
         uses: actions/upload-artifact@v4
         with:
           name: karate-report
